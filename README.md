@@ -3,14 +3,14 @@
 ### Build the container
 
 ```bash
-$ docker build --build-arg uid=$(id -u) --rm=true -t openquake/mapproxy -f Dockerfile .
+$ docker build --build-arg uid=$(id -u) --rm=true -t openquake/mapproxy-server -f Dockerfile .
 ```
 You may skip this step. The container will be downloaded from the Docker Hub.
 
 ### Run the docker and map host data
 
 ```
-$ docker run -v $(pwd):/io -v d -p 8080:8080 openquake/mapproxy
+$ docker run -v $(pwd):/io -v d -p 8080:8080 openquake/mapproxy-server
 ```
 
 #### Custom configurations via env vars
