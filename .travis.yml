@@ -1,0 +1,4 @@
+services: docker
+
+script:
+    - docker build -t openquake/mapproxy -f Dockerfile . 
