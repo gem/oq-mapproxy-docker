@@ -27,6 +27,7 @@ USER mapproxy
 ENV PATH /home/mapproxy/.local/bin:$PATH
 
 RUN pip3 --disable-pip-version-check install --user \
+        http://cdn.ftp.openquake.org/wheelhouse/linux/py36/setproctitle-1.1.10-cp36-cp36m-manylinux1_x86_64.whl \
         http://cdn.ftp.openquake.org/wheelhouse/linux/py36/PyYAML-3.12-cp36-cp36m-manylinux1_x86_64.whl \
         http://cdn.ftp.openquake.org/wheelhouse/linux/py36/pyproj-1.9.5.1-cp36-cp36m-manylinux1_x86_64.whl \
         gunicorn \

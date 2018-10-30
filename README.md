@@ -15,9 +15,10 @@ $ docker run -v $(pwd):/io -v d -p 8080:8080 openquake/mapproxy-server
 
 #### Custom configurations via env vars
 
+- `MAPPROXY_NAME`: specify the name of processes spawned by `gunicorn`. Default is `mapproxy`. This feature uses `setproctitle`
 - `MAPPROXY_CPU`: set the number of CPU to be used by `MapProxy`. By default it's the number of available CPU in the container
 - `MAPPROXY_DEV`: run `MapProxy` in the development mode using its development server instead of `gunicorn`
-- `MAPPROXY_WORKER`; specify the worker to be used by `gunicorn`. Default is `gthread`. This option is available only if `MAPPROXY_DEV` is not set
+- `MAPPROXY_WORKER`: specify the worker to be used by `gunicorn`. Default is `gthread`. This option is available only if `MAPPROXY_DEV` is not set
 
 
 ### Data dir structure
