@@ -21,5 +21,5 @@
 if [ "$MAPPROXY_DEV" ]; then
     exec mapproxy-util serve-multiapp-develop -b :8080 /io/conf
 else
-    exec gunicorn -k ${MAPPROXY_WORKER:-gthread} -t 300 -w ${MAPPROXY_CPU:-`grep -c ^processor /proc/cpuinfo`} -b :8080 config:application --no-sendfile
+    exec gunicorn -n ${MAPPROXY_NAME:-mapproxy} -k ${MAPPROXY_WORKER:-gthread} -t 300 -w ${MAPPROXY_CPU:-`grep -c ^processor /proc/cpuinfo`} -b :8080 config:application --no-sendfile
 fi
