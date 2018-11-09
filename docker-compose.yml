@@ -26,7 +26,7 @@ services:
     ports:
      - "8010:8010"
     networks:
-     - geonet
+     - net
     restart: always
     depends_on:
      - mapproxy
@@ -36,11 +36,11 @@ services:
       MAPPROXY_CPU: 4
       # MAPPROXY_DEV: 'true'
     networks:
-     - geonet
+     - net
     volumes:
      - ./data:/io
     restart: always
     user: '1000'
 
 networks:
-  geonet:
+  net:
