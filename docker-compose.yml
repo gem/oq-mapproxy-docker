@@ -19,27 +19,28 @@
 
 version: '2'
 services:
-  oq-geo-nginx:
+  nginx:
     image: "nginx:1.14-alpine"
     volumes:
      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
      - "8010:8010"
     networks:
-     - oq-geo-net
+     - net
     restart: always
-  oq-geo-mapproxy:
+    depends_on:
+     - mapproxy
+  mapproxy:
     image: "openquake/mapproxy-server"
     environment:
       MAPPROXY_CPU: 4
       # MAPPROXY_DEV: 'true'
     networks:
-     - oq-geo-net
+     - net
     volumes:
      - ./data:/io
     restart: always
-    depends_on:
-     - oq-geo-nginx
+    user: '1000:1000'
 
 networks:
-  oq-geo-net:
+  net:
