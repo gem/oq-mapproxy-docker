@@ -40,7 +40,7 @@ services:
     volumes:
      - ./data:/io
     restart: always
-    user: '1000'
+    user: '1000:1000'
 
 networks:
   net:
