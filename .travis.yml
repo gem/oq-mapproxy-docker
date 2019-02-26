@@ -2,3 +2,4 @@ services: docker
 
 script:
     - docker build -t openquake/mapproxy -f Dockerfile . 
+    - docker run --rm -ti -u 500:500 openquake/mapproxy mapproxy-util --version | grep -w "MapProxy"
