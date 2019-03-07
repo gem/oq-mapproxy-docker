@@ -1,4 +1,5 @@
 ## MapProxy via Docker
+[![Build Status](https://travis-ci.com/gem/oq-mapproxy-docker.svg?branch=master)](https://travis-ci.com/gem/oq-mapproxy-docker)
 
 ### Build the container
 
