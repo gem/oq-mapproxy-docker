@@ -3,7 +3,7 @@
 # vim: syntax=dockerfile
 #
 # oq-mapproxy-docker
-# Copyright (C) 2018 GEM Foundation
+# Copyright (C) 2018-2019 GEM Foundation
 #
 # oq-mapproxy-docker is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,7 +20,7 @@
 
 # Stay on F29 since we want Python 3.6 (MapProxy 1.11 not working with Python 3.7)
 FROM fedora:28
-MAINTAINER Daniele Viganò <daniele@openquake.org>
+LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
 
 ARG uid=1000
 ARG pkg=MapProxy
