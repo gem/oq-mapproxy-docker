@@ -3,7 +3,7 @@
 # vim: syntax=dockerfile
 #
 # oq-mapproxy-docker
-# Copyright (C) 2018 GEM Foundation
+# Copyright (C) 2018-2019 GEM Foundation
 #
 # oq-mapproxy-docker is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,9 +20,10 @@
 
 # Stay on F29 since we want Python 3.6 (MapProxy 1.11 not working with Python 3.7)
 FROM fedora:28
-MAINTAINER Daniele Viganò <daniele@openquake.org>
+LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
 
 ARG uid=1000
+ARG pkg=MapProxy
 
 RUN mkdir /opt/mapproxy && \
     pip3 --disable-pip-version-check install \
@@ -30,7 +31,7 @@ RUN mkdir /opt/mapproxy && \
         http://cdn.ftp.openquake.org/wheelhouse/linux/py36/pyproj-1.9.5.1-cp36-cp36m-manylinux1_x86_64.whl \
         http://cdn.ftp.openquake.org/wheelhouse/linux/py36/PyYAML-3.12-cp36-cp36m-manylinux1_x86_64.whl \
         gunicorn \
-        MapProxy
+        $pkg
 
 USER $uid
 
