@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Stay on F29 since we want Python 3.6 (MapProxy 1.11 not working with Python 3.7)
+# Stay on F28 since we want Python 3.6 (MapProxy 1.11 not working with Python 3.7)
 FROM fedora:28
 LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
 
