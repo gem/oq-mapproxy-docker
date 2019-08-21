@@ -2,7 +2,7 @@
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
 #
 # oq-mapproxy-docker
-# Copyright (C) 2018 GEM Foundation
+# Copyright (C) 2018-2019 GEM Foundation
 #
 # oq-mapproxy-docker is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by

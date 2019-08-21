@@ -1,6 +1,6 @@
-#!/bin/bash
 # -*- coding: utf-8 -*-
 # vim: tabstop=4 shiftwidth=4 softtabstop=4
+# vim: syntax=dockerfile
 #
 # oq-mapproxy-docker
 # Copyright (C) 2018-2019 GEM Foundation
@@ -18,8 +18,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-if [ "$MAPPROXY_DEV" ]; then
-    exec mapproxy-util serve-multiapp-develop -b :8080 /io/conf
-else
-    exec gunicorn -n ${MAPPROXY_NAME:-mapproxy} -k ${MAPPROXY_WORKER:-gthread} -t 300 -w ${MAPPROXY_CPU:-`grep -c ^processor /proc/cpuinfo`} -b :8080 config:application --no-sendfile
-fi
+FROM fedora:30
+LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
+
+ARG uid=1000
+ARG pkg=https://github.com/mapproxy/mapproxy/archive/master.zip
+
+RUN dnf install -y proj && dnf clean all && \
+    mkdir /opt/mapproxy && \
+    pip3 --disable-pip-version-check install \
+        https://wheelhouse.openquake.org/v3/linux/py37/setproctitle-1.1.10-cp37-cp37m-manylinux1_x86_64.whl \
+        gunicorn \
+        $pkg
+
+USER $uid
+
+WORKDIR /opt/mapproxy
+ADD run-mapproxy.sh .
+ADD config.py .
+
+EXPOSE 8080 
+
+CMD ["./run-mapproxy.sh"]

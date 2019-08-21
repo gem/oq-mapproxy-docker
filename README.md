@@ -3,23 +3,22 @@
 
 ### Build the container
 
-#### Stable releases
+#### Stable releases (old)
 
 TAG: `openquake/mapprox-server:stable`, `openquake/mapprox-server:1.11.0`
 
 ```bash
 $ docker build --build-arg uid=$(id -u) \
-               -t openquake/mapproxy-server -f Dockerfile .
+               -t openquake/mapproxy-server -f Dockerfile.stable .
 ```
 
-#### Build from master tree
+#### Built from master tree (recommended)
 
 TAG: `openquake/mapprox-server:master`
 
 ```bash
 $ docker build --build-arg uid=$(id -u) \
-               --build-arg pkg=https://github.com/mapproxy/mapproxy/archive/master.zip \
-               -t openquake/mapproxy-server -f Dockerfile .
+               -t openquake/mapproxy-server -f Dockerfile.master .
 ```
 
 You may skip these steps. The container will be downloaded from the Docker Hub.
