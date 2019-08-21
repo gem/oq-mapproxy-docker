@@ -18,18 +18,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Stay on F28 since we want Python 3.6 (MapProxy 1.11 not working with Python 3.7)
-FROM fedora:28
+FROM fedora:30
 LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
 
 ARG uid=1000
 ARG pkg=MapProxy
 
-RUN mkdir /opt/mapproxy && \
+RUN dnf install -y proj && dnf clean all && \
+    mkdir /opt/mapproxy && \
     pip3 --disable-pip-version-check install \
-        http://cdn.ftp.openquake.org/wheelhouse/linux/py36/setproctitle-1.1.10-cp36-cp36m-manylinux1_x86_64.whl \
-        http://cdn.ftp.openquake.org/wheelhouse/linux/py36/pyproj-1.9.5.1-cp36-cp36m-manylinux1_x86_64.whl \
-        http://cdn.ftp.openquake.org/wheelhouse/linux/py36/PyYAML-3.12-cp36-cp36m-manylinux1_x86_64.whl \
+        https://wheelhouse.openquake.org/v3/linux/py37/setproctitle-1.1.10-cp37-cp37m-manylinux1_x86_64.whl \
         gunicorn \
         $pkg
 
