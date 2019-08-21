@@ -22,7 +22,7 @@ FROM fedora:30
 LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
 
 ARG uid=1000
-ARG pkg=MapProxy
+ARG pkg=https://github.com/mapproxy/mapproxy/archive/master.zip
 
 RUN dnf install -y proj && dnf clean all && \
     mkdir /opt/mapproxy && \

@@ -3,16 +3,17 @@
 
 ### Build the container
 
-#### Stable releases
+#### Stable releases (old)
 
 TAG: `openquake/mapprox-server:stable`, `openquake/mapprox-server:1.11.0`
 
 ```bash
 $ docker build --build-arg uid=$(id -u) \
+               --build-arg pkg=MapProxy \
                -t openquake/mapproxy-server -f Dockerfile .
 ```
 
-#### Build from master tree
+#### Built from master tree (recommended)
 
 TAG: `openquake/mapprox-server:master`
 
