@@ -1,24 +1,24 @@
-## MapProxy via Docker
+##  [MapProxy](https://github.com/mapproxy/mapproxy) via Docker
 [![Build Status](https://travis-ci.com/gem/oq-mapproxy-docker.svg?branch=master)](https://travis-ci.com/gem/oq-mapproxy-docker)
 
 ### Build the container
 
-#### Stable releases (old)
+#### Stable releases
 
-TAG: `openquake/mapprox-server:stable`, `openquake/mapprox-server:1.11.0`
+TAG: `openquake/mapprox-server:stable`, `openquake/mapprox-server:1.12.0`
 
 ```bash
-$ docker build --build-arg uid=$(id -u) \
-               -t openquake/mapproxy-server -f Dockerfile.stable .
+$ docker build --build-arg uid=$(id -u) -t openquake/mapproxy-server .
 ```
 
-#### Built from master tree (recommended)
+#### Built from master tree
 
 TAG: `openquake/mapprox-server:master`
 
 ```bash
 $ docker build --build-arg uid=$(id -u) \
-               -t openquake/mapproxy-server -f Dockerfile.master .
+  --build-arg pkg=https://github.com/mapproxy/mapproxy/archive/master.zip \
+  -t openquake/mapproxy-server .
 ```
 
 You may skip these steps. The container will be downloaded from the Docker Hub.
