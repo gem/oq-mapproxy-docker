@@ -9,7 +9,7 @@ jobs:
   - stage: build
     env: MASTER
     install:
-      - docker build -t openquake/mapproxy . 
+      - docker build --build arg pkg=https://github.com/mapproxy/mapproxy/archive/master.zip -t openquake/mapproxy . 
 
 script:
     - docker run --rm -ti -u 500:500 openquake/mapproxy mapproxy-util --version | grep -w "MapProxy"

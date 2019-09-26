@@ -16,7 +16,9 @@ $ docker build --build-arg uid=$(id -u) -t openquake/mapproxy-server .
 TAG: `openquake/mapprox-server:master`
 
 ```bash
-$ docker build --build-arg uid=$(id -u) -t openquake/mapproxy-server .
+$ docker build --build-arg uid=$(id -u) \
+  --build-arg pkg=https://github.com/mapproxy/mapproxy/archive/master.zip \
+  -t openquake/mapproxy-server .
 ```
 
 You may skip these steps. The container will be downloaded from the Docker Hub.
