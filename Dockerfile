@@ -3,7 +3,7 @@
 # vim: syntax=dockerfile
 #
 # oq-mapproxy-docker
-# Copyright (C) 2018-2019 GEM Foundation
+# Copyright (C) 2018-2020 GEM Foundation
 #
 # oq-mapproxy-docker is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,13 +18,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM fedora:30
-LABEL maintainer="Daniele Viganò <daniele@openquake.org>"
+FROM fedora:31
+LABEL maintainer="GEM FOundation <devops@openquake.org>"
 
 ARG uid=1000
 ARG pkg=MapProxy
 
-RUN dnf install -y proj && dnf clean all && \
+RUN dnf install -y proj python3-pip && dnf clean all && \
     mkdir /opt/mapproxy && \
     pip3 --disable-pip-version-check install \
         https://wheelhouse.openquake.org/v3/linux/py37/setproctitle-1.1.10-cp37-cp37m-manylinux1_x86_64.whl \
