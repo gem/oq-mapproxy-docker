@@ -17,5 +17,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# import logging
 from mapproxy.multiapp import make_wsgi_app
 application = make_wsgi_app('/io/conf', allow_listing=False)
+# ch = logging.StreamHandler()
+# ch.setLevel(logging.DEBUG)
