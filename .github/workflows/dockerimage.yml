@@ -8,13 +8,13 @@ on:
         default: nightly
         required: true
       git-ref:
-        description: Git Ref (Optional)    
+        description: Git Ref
         default: master
         required: false  
 
 jobs:
   docker:
-    name: Build image and push after successfull calculation
+    name: Build image and push on dockerhub
     runs-on: ubuntu-latest
 
     steps:
@@ -27,22 +27,22 @@ jobs:
         if: github.event.inputs.git-ref != ''
         with:
           ref: ${{ github.event.inputs.git-ref }}
-      - name: Build image engine with tag nightly
+      - name: Build image engine with tag ${{ github.event.inputs.version }}
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
           DOCKER_TAG: ${{ github.event.inputs.version }}
           REPO_REF: ${{ github.event.inputs.git-ref }}
         id: docker_mapproxy
-        run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-serveropenquake:$DOCKER_TAG -f Dockerfile
+        run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-server:$DOCKER_TAG -f Dockerfile
       - name: List Image
         run: |
           docker image ls
-      - name: push image engine with tag nightly on docker hub
+      - name: push mapproxy image with tag ${{ github.event.inputs.version }} on dockerhub
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
           DOCKER_TAG: ${{ github.event.inputs.version }}
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-          docker push openquake/mapproxy-serveropenquake:$DOCKER_TAG
+          docker push openquake/mapproxy-server:$DOCKER_TAG
