@@ -5,12 +5,12 @@ on:
     inputs:
       version:
         description: Image Tag 
-        default: nightly
+        default: latest
         required: true
       git-ref:
         description: Git Ref
         default: master
-        required: false  
+        required: true  
 
 jobs:
   docker:
@@ -19,7 +19,7 @@ jobs:
 
     steps:
   # This Checkout is necessary when using a context in docker/build-push-action
-      - name: Clone Repository (Latest)
+      - name: Clone Repository (Master)
         uses: actions/checkout@v2
         if: github.event.inputs.git-ref == ''
       - name: Clone Repository (Custom Ref)
