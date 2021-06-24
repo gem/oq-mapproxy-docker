@@ -22,6 +22,9 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
+      - name: Check tag extraction
+        shell: bash
+        run: set -x ; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
       - name: Extract tag names
         shell: bash
         run: echo "##[set-output name=branch;]" | tr -d '\n'; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
