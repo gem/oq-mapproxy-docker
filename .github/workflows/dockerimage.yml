@@ -5,8 +5,16 @@ on:
     inputs:
       version:
         description: Image Tag 
-        default: latest
+        default: 
         required: true
+      version2:
+        description: Extra Image Tag 
+        default: 
+        required: false
+      pkg:
+        description: Pkg of mapproxy
+        default: https://github.com/mapproxy/mapproxy/archive/refs/tags/1.13.0.zip
+        required: true  
       git-ref:
         description: Git Ref
         default: master
