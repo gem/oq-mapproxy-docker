@@ -38,17 +38,17 @@ jobs:
         if: ${{ steps.extract_branch.outputs.branch }} != ''
         with:
           ref: ${{ steps.extract_branch.outputs.branch }}
-      - name: Build image with tags ${{ steps.extract_tags.outputs.tags }}
+      - name: Build image with tags ${{ github.event.inputs.tags }}
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
           REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
-        run: set -x ; eval docker build ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
+        run: set -x ; docker build ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
       - name: List Image
         run: |
           docker image ls
-      - name: push mapproxy image with tags ${{ steps.extract_tags.outputs.tags }} on dockerhub
+      - name: push mapproxy image with tags ${{ github.event.inputs.tags }} on dockerhub
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
