@@ -26,25 +26,14 @@ jobs:
         shell: bash
         run: echo "##[set-output name=tags;]" | tr -d '\n'; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
         id: extract_tags
-      - name: Check tag extraction
-        shell: bash
-        run: echo ${{ steps.extract_tags.outputs.tags }}
-  # This Checkout is necessary when using a context in docker/build-push-action
-      - name: Clone Repository (Master)
+      # This Checkout is necessary when using a context in docker/build-push-action
+      - name: Clone Repository on branch (${{ steps.extract_branch.outputs.branch }})
         uses: actions/checkout@v2
-        if: ${{ steps.extract_branch.outputs.branch }} != ''
-      - name: Clone Repository (Custom Ref)
-        uses: actions/checkout@v2
-        if: ${{ steps.extract_branch.outputs.branch }} != ''
         with:
           ref: ${{ steps.extract_branch.outputs.branch }}
       - name: Build image with tags ${{ github.event.inputs.tags }}
-        env:
-          DOCKER_USERNAME: ${{ secrets.docker_username }}
-          DOCKER_PASSWORD: ${{ secrets.docker_password }}
-          REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
-        run: set -x ; docker build ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
+        run: docker build ${{ steps.extract_tags.outputs.tags }} -f Dockerfile .
       - name: List Image
         run: |
           docker image ls
