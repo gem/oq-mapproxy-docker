@@ -15,10 +15,6 @@ on:
         description: Pkg of mapproxy
         default: https://github.com/mapproxy/mapproxy/archive/refs/tags/1.13.0.zip
         required: true  
-      git-ref:
-        description: Git Ref
-        default: master
-        required: true  
 
 jobs:
   docker:
@@ -29,18 +25,18 @@ jobs:
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
         uses: actions/checkout@v2
-        if: github.event.inputs.git-ref == ''
+        if: ${GITHUB_REF##*/} != ''
       - name: Clone Repository (Custom Ref)
         uses: actions/checkout@v2
-        if: github.event.inputs.git-ref != ''
+        if: ${GITHUB_REF##*/} != ''
         with:
-          ref: ${{ github.event.inputs.git-ref }}
+          ref: ${GITHUB_REF##*/}
       - name: Build image engine with tag ${{ github.event.inputs.version }}
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
           DOCKER_TAG: ${{ github.event.inputs.version }}
-          REPO_REF: ${{ github.event.inputs.git-ref }}
+          REPO_REF: ${GITHUB_REF##*/}
         id: docker_mapproxy
         run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-server:$DOCKER_TAG -f Dockerfile
       - name: List Image
