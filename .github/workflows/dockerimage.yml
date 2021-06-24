@@ -1,5 +1,5 @@
 ---
-name: docker buil and push on dockerhub
+name: docker build and push on dockerhub
 on:
   workflow_dispatch:
     inputs:
