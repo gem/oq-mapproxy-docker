@@ -3,10 +3,6 @@ name: docker build and push on dockerhub
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: Image Tag 
-        default: unstable
-        required: true
       tags:
         description: Comma-separated list of tags
         default: unstable
@@ -39,7 +35,7 @@ jobs:
         if: ${{ steps.extract_branch.outputs.branch }} != ''
         with:
           ref: ${{ steps.extract_branch.outputs.branch }}
-      - name: Build image with tags ${{ steps.extract_tags.outputs.tags}}
+      - name: Build image with tags ${{ steps.extract_tags.outputs.tags }}
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
@@ -49,10 +45,10 @@ jobs:
       - name: List Image
         run: |
           docker image ls
-      - name: push mapproxy image with tag ${{ github.event.inputs.version }} on dockerhub
+      - name: push mapproxy image with tags ${{ steps.extract_tags.outputs.tags }} on dockerhub
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-          docker push openquake/mapproxy-server --all-tags
+          docker push openquake/mapproxy-server
