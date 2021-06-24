@@ -27,7 +27,7 @@ jobs:
         run: set -x ; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
       - name: Extract tag names
         shell: bash
-        run: echo "##[set-output name=branch;]" | tr -d '\n'; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
+        run: echo "##[set-output name=tags;]" | tr -d '\n'; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
         id: extract_tag_names
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
