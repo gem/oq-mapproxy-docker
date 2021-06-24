@@ -42,7 +42,7 @@ jobs:
           DOCKER_TAG: ${{ github.event.inputs.version }}
           REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
-        run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-server:$DOCKER_TAG -f Dockerfile
+        run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-server:$DOCKER_TAG -f Dockerfile .
       - name: List Image
         run: |
           docker image ls
