@@ -39,14 +39,13 @@ jobs:
         if: ${{ steps.extract_branch.outputs.branch }} != ''
         with:
           ref: ${{ steps.extract_branch.outputs.branch }}
-      - name: Build image engine with tag ${{ github.event.inputs.version }}
+      - name: Build image with tags ${{ steps.extract_tags.outputs.tags}}
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
-          DOCKER_TAG: ${{ github.event.inputs.version }}
           REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
-        run: docker build --build-arg oq_branch=$REPO_REF ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
+        run: docker build ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
       - name: List Image
         run: |
           docker image ls
@@ -54,7 +53,6 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
-          DOCKER_TAG: ${{ github.event.inputs.version }}
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-          docker push openquake/mapproxy-server:$DOCKER_TAG
+          docker push openquake/mapproxy-server --all-tags
