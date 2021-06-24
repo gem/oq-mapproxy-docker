@@ -22,24 +22,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Primo step
-        run: echo $SHELL
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
         shell: bash
         uses: actions/checkout@v2
-        if: ${GITHUB_REF##*/} != ''
+        if: ${{ steps.extract_branch.outputs.branch }} != ''
       - name: Clone Repository (Custom Ref)
         uses: actions/checkout@v2
-        if: ${GITHUB_REF##*/} != ''
+        if: ${{ steps.extract_branch.outputs.branch }} != ''
         with:
-          ref: ${GITHUB_REF##*/}
+          ref: ${{ steps.extract_branch.outputs.branch }}
       - name: Build image engine with tag ${{ github.event.inputs.version }}
         env:
           DOCKER_USERNAME: ${{ secrets.docker_username }}
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
           DOCKER_TAG: ${{ github.event.inputs.version }}
-          REPO_REF: ${GITHUB_REF##*/}
+          REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
         run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-server:$DOCKER_TAG -f Dockerfile
       - name: List Image
