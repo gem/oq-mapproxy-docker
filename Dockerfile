@@ -3,7 +3,7 @@
 # vim: syntax=dockerfile
 #
 # oq-mapproxy-docker
-# Copyright (C) 2018-2020 GEM Foundation
+# Copyright (C) 2018-2022 GEM Foundation
 #
 # oq-mapproxy-docker is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 FROM fedora:31
-LABEL maintainer="GEM FOundation <devops@openquake.org>"
+LABEL maintainer="GEM Foundation <devops@openquake.org>"
 
 ARG uid=1000
 ARG pkg=MapProxy
