@@ -54,4 +54,4 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
         run: |
           docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-          docker push openquake/mapproxy-server
+          docker push openquake/mapproxy-server --all-tags
