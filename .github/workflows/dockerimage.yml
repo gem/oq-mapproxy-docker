@@ -7,9 +7,9 @@ on:
         description: Image Tag 
         default: unstable
         required: true
-      version2:
-        description: Extra Image Tag 
-        default: 
+      tags:
+        description: Comma-separated list of tags
+        default: unstable
         required: false
       pkg:
         description: Pkg of mapproxy
@@ -26,6 +26,10 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
+      - name: Extract tag names
+        shell: bash
+        run: echo "##[set-output name=branch;]" | tr -d '\n'; for tag in $(echo ${{ github.event.inputs.tags }} | tr , '\n'); do echo "-t openquake/mapproxy-server:$tag " | tr -d '\n'; done
+        id: extract_tag_names
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
         uses: actions/checkout@v2
@@ -42,7 +46,7 @@ jobs:
           DOCKER_TAG: ${{ github.event.inputs.version }}
           REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
-        run: docker build --build-arg oq_branch=$REPO_REF -t openquake/mapproxy-server:$DOCKER_TAG -f Dockerfile .
+        run: docker build --build-arg oq_branch=$REPO_REF {{ steps.extract_tags.outputs.tags}} -f Dockerfile .
       - name: List Image
         run: |
           docker image ls
