@@ -28,7 +28,6 @@ jobs:
         id: extract_branch
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
-        shell: bash
         uses: actions/checkout@v2
         if: ${{ steps.extract_branch.outputs.branch }} != ''
       - name: Clone Repository (Custom Ref)
