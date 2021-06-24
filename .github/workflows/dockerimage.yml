@@ -41,7 +41,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.docker_password }}
           REPO_REF: ${{ steps.extract_branch.outputs.branch }}
         id: docker_mapproxy
-        run: docker build ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
+        run: eval docker build ${{ steps.extract_tags.outputs.tags}} -f Dockerfile .
       - name: List Image
         run: |
           docker image ls
