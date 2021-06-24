@@ -5,7 +5,7 @@ on:
     inputs:
       version:
         description: Image Tag 
-        default: 
+        default: unstable
         required: true
       version2:
         description: Extra Image Tag 
@@ -26,6 +26,7 @@ jobs:
         run: echo $SHELL
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
+        shell: bash
         uses: actions/checkout@v2
         if: ${GITHUB_REF##*/} != ''
       - name: Clone Repository (Custom Ref)
