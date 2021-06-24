@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Primo step
+        run: echo $SHELL
   # This Checkout is necessary when using a context in docker/build-push-action
       - name: Clone Repository (Master)
         uses: actions/checkout@v2
