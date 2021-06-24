@@ -6,7 +6,7 @@ on:
       tags:
         description: Comma-separated list of tags
         default: unstable
-        required: false
+        required: true
       pkg:
         description: Pkg of mapproxy
         default: https://github.com/mapproxy/mapproxy/archive/refs/tags/1.13.0.zip
