@@ -17,10 +17,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-version: '2'
+version: '3.7'
 services:
   nginx:
-    image: "nginx:1.14-alpine"
+    image: "nginx:stable-alpine"
     volumes:
      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
