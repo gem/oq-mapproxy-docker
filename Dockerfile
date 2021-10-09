@@ -18,20 +18,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM fedora:33
+FROM python:3.9-slim
 LABEL maintainer="GEM Foundation <devops@openquake.org>"
 
 ARG uid=1000
 ARG pkg=MapProxy
 
-RUN dnf install -y proj python3-pip && dnf clean all && \
-    mkdir /opt/mapproxy && \
-    # https://wheelhouse.openquake.org/v3/linux/py37/setproctitle-1.1.10-cp37-cp37m-manylinux1_x86_64.whl \
-    pip3 --disable-pip-version-check install \
-        setproctitle \
-        gunicorn \
-        pyproj \
-        $pkg
+RUN apt update && apt install -y proj-bin && apt clean \
+    && mkdir /opt/mapproxy \
+    && pip3 --disable-pip-version-check install \
+          setproctitle \
+          gunicorn \
+          pyproj \
+          $pkg
 
 USER $uid
 
